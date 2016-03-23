@@ -1,0 +1,42 @@
+<html>
+<head>
+<title>autodo {% block title %}home{% endblock title %}</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://cdn.jquerytools.org/1.0.2/jquery.tools.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/static/css/main.css" />
+
+<script type="text/javascript" src="/static/js/overlay.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/overlay.css" />
+
+{{ media }}
+</head>
+<body>
+{% include "navigation.html" %}
+<br />
+
+{% block content %}
+<br />
+
+{% if messages %}
+<h3>Messages</h3>
+<ul>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% endblock content %}
+<hr />
+autodo.me helps you staying focused and keeping you productive.
+It directs your need for distraction towards your next tasks and thus limiting the time you just wandering around in your head without getting anything done.
+Its closely related to the Autofocus Task Management, but has some additions. The biggest drawback is that its eletronic and not on paper. But to compensate this, it reports what you you and helps you figuring out how much time you sepnt on what task.
+<br />
+
+<div class="overlay" id="overlay"> 
+     <!-- the external content is loaded inside this tag --> 
+    <div class="wrap"></div> 
+</div>
+</body>
+</html>

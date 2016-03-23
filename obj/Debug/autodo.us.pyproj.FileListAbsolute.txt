@@ -1,0 +1,15 @@
+c:\users\andre\documents\visual studio 2015\Projects\autodo.us\autodo.us\bin\Microsoft.PythonTools.WebRole.dll
+c:\users\andre\documents\visual studio 2015\Projects\autodo.us\autodo.us\obj\Debug\attach_server.py
+c:\users\andre\documents\visual studio 2015\Projects\autodo.us\autodo.us\obj\Debug\visualstudio_py_debugger.py
+c:\users\andre\documents\visual studio 2015\Projects\autodo.us\autodo.us\obj\Debug\visualstudio_py_repl.py
+c:\users\andre\documents\visual studio 2015\Projects\autodo.us\autodo.us\obj\Debug\visualstudio_py_util.py
+c:\users\andre\documents\visual studio 2015\Projects\autodo.us\autodo.us\obj\Debug\__init__.py
+c:\users\andre\documents\visual studio 2015\Projects\autodo.us\autodo.us\obj\Debug\__main__.py
+c:\users\andre\documents\visual studio 2015\Projects\autodo.us\autodo.us\bin\AzureSetup.cfg
+c:\users\andre\documents\visual studio 2015\Projects\autodo.us\autodo.us\bin\Microsoft.PythonTools.AzureSetup.exe
+c:\users\andre\documents\visual studio 2015\Projects\autodo.us\autodo.us\bin\Microsoft.PythonTools.AzureSetup.exe.config
+c:\users\andre\documents\visual studio 2015\Projects\autodo.us\autodo.us\bin\wfastcgi.py
+C:\Users\andre\Documents\Visual Studio 2015\Projects\autodo.us\autodo.us\obj\Debug\deployment-updated-pyvenv.cfg
+C:\Users\andre\Documents\Visual Studio 2015\Projects\autodo.us\autodo.us\ptvs_virtualenv_proxy.py
+C:\Users\andre\documents\visual studio 2015\Projects\autodo.us\autodo.us\obj\Debug\web.config
+C:\Users\andre\documents\visual studio 2015\Projects\autodo.us\autodo.us\obj\Debug\web.debug.config

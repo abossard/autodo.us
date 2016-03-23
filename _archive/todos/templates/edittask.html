@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %} {{ block.super }} index{% endblock title %}
+{% block content %}
+{{ block.super }}
+
+<h1>Edit Task "{{ task }}" from "<a href="{% url todos.views.workbook book_id=task.book.id %}">{{ task.book }}</a>"</h1>
+
+<form method="post" action="{% url todos.views.edittask task_id=task.id %}">
+{{ editform }} <input type="submit" />
+</form>
+
+<h3>Last work in task {{task}} </h3>
+<ul>
+{% for line in lines %}
+<li>start {{ line.start }} - end {{ line.end }} = {{ line.duration }}<a href="{% url todos.views.editline line_id=line.id %}">correct</a></li>
+{% endfor %}
+</ul>
+{% endblock content %}

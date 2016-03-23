@@ -1,0 +1,14 @@
+<<<<<<< HEAD
+{% if user.is_authenticated %}
+    <a href="{% url autodous.todos.views.workbook  %}">workbook</a> | <a href="{% url todos.views.taskbook %}">taskbook</a>
+{% endif %}
+=======
+<a href="{% url autodous.todos.views.workbook %}">workbook</a> | <a href="{% url autodous.todos.views.taskbook %}">taskbook</a>
+>>>>>>> ok lets try it
+
+Welcome User {{ user }}
+{% if user.is_authenticated %}
+logged in: <a href="{% url django.contrib.auth.views.logout %}">logout</a>
+{% else %}
+not logged in: <a href="{% url django.contrib.auth.views.login %}">login</a>
+{% endif %}
