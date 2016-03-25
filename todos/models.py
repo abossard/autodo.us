@@ -3,6 +3,7 @@ from django.db import models
 import re
 import logging
 from todos.managers import TaskManager, TagManager, PersonManager, LineManager
+from django.utils import timezone
 log = logging.getLogger(__name__)
 
 from datetime import datetime, timedelta, time
@@ -17,8 +18,6 @@ from django.contrib import admin
 from django.core.exceptions import ObjectDoesNotExist
 from todos.fields import TimedeltaField
 
-
-
 class Book(models.Model):
     name = models.CharField(max_length=100)
     owner = models.ForeignKey(User)
@@ -26,8 +25,10 @@ class Book(models.Model):
     class Meta:
         ordering=('name', )
         unique_together = ('name','owner')
-    def __unicode__(self):
+
+    def __str__(self):
         return self.name
+
 
 class Task(models.Model):
     text = models.CharField(max_length=200)
@@ -35,7 +36,7 @@ class Task(models.Model):
     finished = models.BooleanField(default=False)
     book = models.ForeignKey(Book)
     active = models.BooleanField(default=False)
-    duration = TimedeltaField(default=0)
+    duration = TimedeltaField(default=timedelta(0))
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     current_line = models.ForeignKey('Line', related_name='current_task', blank=True, null=True, default=None) # we blanked it, because the signal fills it out
@@ -47,7 +48,7 @@ class Task(models.Model):
         unique_together = ('text','book')
     class Admin:
         list_filter = ('text', 'owner', 'finished',)
-    def __unicode__(self):
+    def __str__(self):
         return self.text
 
 def task_line_management(sender, **kwargs):
@@ -59,7 +60,7 @@ def task_line_management(sender, **kwargs):
             log.info("task.active!")
             if not line.start:
                 log.info("set line start")
-                line.start = datetime.now()
+                line.start = timezone.now()
                 line.save()
             else:
                 log.warn("line already started (ignore in fixtures)") 
@@ -68,7 +69,7 @@ def task_line_management(sender, **kwargs):
             # finish up work
             # arriving here menas: Task is not active, and has a current_line that has not set an end
             # we'll set an end and create a new line.
-            line.end = datetime.now()
+            line.end = timezone.now()
             line.passed_on = True
             line.save()
             #now we finished and check if we should create a new line
@@ -116,7 +117,7 @@ post_save.connect(tag_and_people_management, sender=Task)
 class Tag(models.Model):
     name = models.CharField(max_length=50, primary_key=True)
     tagged = models.ManyToManyField(Task)
-    duration = TimedeltaField(default=0)
+    duration = TimedeltaField(default=timedelta(0))
 
     objects = TagManager()
 
@@ -131,14 +132,14 @@ class Tag(models.Model):
             duration += task.time_spent()
         return duration
 
-    def __unicode__(self):
+    def __str__(self):
         return "#%s" % (self.name,)
 
 
 class Person(models.Model):
     name = models.CharField(max_length=50, primary_key=True)
     sitsin = models.ManyToManyField(Task)
-    duration = TimedeltaField(default=0)
+    duration = TimedeltaField(default=timedelta(0))
     
     objects = PersonManager()
     
@@ -151,7 +152,7 @@ class Person(models.Model):
             duration += task.time_spent()
         return duration
     
-    def __unicode__(self):
+    def __str__(self):
         return "@%s" % (self.name,)
 
 
@@ -162,13 +163,13 @@ class Line(models.Model):
     book = models.ForeignKey(Book)
     start = models.DateTimeField(null=True, blank=True)
     end = models.DateTimeField(null=True, blank=True)
-    duration = TimedeltaField(default=0)
+    duration = TimedeltaField(default=timedelta(0))
 
     objects = LineManager()
 
     class Meta:
         ordering = ('-created',)
-    def __unicode__(self):
+    def __str__(self):
         if self.start and self.end and self.duration:
             return "%s for %s" %(self.start.strftime('%H:%M'),self.duration,)
         elif self.start:

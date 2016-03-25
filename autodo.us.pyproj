@@ -42,7 +42,14 @@
     <Compile Include="autodous\settings.py" />
     <Compile Include="autodous\urls.py" />
     <Compile Include="autodous\wsgi.py" />
+    <Compile Include="todos\admin.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="todos\fields.py" />
+    <Compile Include="todos\managers.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="todos\migrations\__init__.py" />
     <Compile Include="todos\models.py" />
     <Compile Include="todos\tests.py" />
     <Compile Include="todos\views.py" />
@@ -61,6 +68,8 @@
     <Folder Include="autodous_base\" />
     <Folder Include="autodous_base\templates\" />
     <Folder Include="todos\" />
+    <Folder Include="todos\migrations\" />
+    <Folder Include="todos\migrations\__pycache__\" />
     <Folder Include="todos\templates\" />
     <Folder Include="_archive\" />
     <Folder Include="_archive\static\" />
@@ -75,7 +84,8 @@
   <ItemGroup>
     <Content Include="autodous_base\templates\index.html" />
     <Content Include="requirements.txt" />
-    <Content Include="db.sqlite3" />
+    <Content Include="todos\migrations\__pycache__\0001_initial.cpython-35.pyc" />
+    <Content Include="todos\migrations\__pycache__\__init__.cpython-35.pyc" />
     <Content Include="todos\templates\index.html" />
     <Content Include="_archive\static\css\main.css" />
     <Content Include="_archive\static\css\overlay.css" />

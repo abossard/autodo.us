@@ -7,7 +7,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 class TimedeltaIntegerField(fields.IntegerField):
-    def get_db_prep_value(self, value):
+    def get_prep_value(self, value):
         if value is None:
             return None
         return value.days * 86400 + value.seconds
@@ -19,6 +19,7 @@ class TimedeltaIntegerField(fields.IntegerField):
             return timedelta(seconds=value)
         except (TypeError, ValueError):
             raise exceptions.ValidationError("This value must be a an integer representing a timedelta.")
+
 
 class TimedeltaField(models.Field):
 
@@ -39,7 +40,7 @@ class TimedeltaField(models.Field):
             return timedelta(seconds=int(value))
         except (TypeError, ValueError):
             pass
-        if isinstance(value, unicode):
+        if isinstance(value, str):
             #example '34722 days, 5:20:00.0000'
             m = match(r"((?P<days>-?\d+) days?, )?(?P<hours>\d+):(?P<minutes>\d+):(?P<seconds>\d+)(\.(?P<milliseconds>\d+))?", value)
             if not m:
@@ -53,5 +54,5 @@ class TimedeltaField(models.Field):
                     milliseconds = int(m.group('milliseconds')) if m.group('milliseconds') else 0,
                     )
             
-    def get_db_prep_value(self, value):
-        return value.days * 86400 + value.seconds
+    def get_db_prep_value(self, value, connection, prepared=False):
+        return value.days * 86400 + value.seconds + 0 if isinstance(value, timedelta) else value
