@@ -43,13 +43,14 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = ()
 
 STATICFILES_FINDERS = ('django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-)
+                       'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+                       #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+                       )
 
 SECRET_KEY = 'n(bd1f1c%e8=_xad02x5qtfn%wgwpi492e$8_erx+d)!tpeoim'
 
-MIDDLEWARE_CLASSES = ('django.middleware.common.CommonMiddleware',
+MIDDLEWARE_CLASSES = (
+    'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -61,21 +62,48 @@ MIDDLEWARE_CLASSES = ('django.middleware.common.CommonMiddleware',
 ROOT_URLCONF = 'autodous.urls'
 WSGI_APPLICATION = 'autodous.wsgi.application'
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'guardian.backends.ObjectPermissionBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+)
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'http'
+ACCOUNT_FORMS = {}
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+SOCIALACCOUNT_AUTO_SIGNUP = True
+LOGIN_REDIRECT_URL = '/'
+
 TEMPLATES = [{
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
     'OPTIONS': {
-        'loaders': ('django.template.loaders.filesystem.Loader',
-                    'django.template.loaders.app_directories.Loader',),
+        'loaders': (
+            'django.template.loaders.filesystem.Loader',
+            'django.template.loaders.app_directories.Loader',
+        ),
         'debug': DEBUG,
-        'context_processors':["django.contrib.auth.context_processors.auth",
+        'context_processors': [
+            "django.contrib.auth.context_processors.auth",
             "django.template.context_processors.debug",
             "django.template.context_processors.i18n",
             "django.template.context_processors.media",
             "django.template.context_processors.static",
+            "django.template.context_processors.request",
             "django.template.context_processors.tz",
-            "django.contrib.messages.context_processors.messages"]
-        }
-    },]
+            "django.contrib.messages.context_processors.messages"
+        ]
+    }
+}]
+
+ACTSTREAM_SETTINGS = {
+    'MANAGER': 'actstream.managers.ActionManager',
+    'FETCH_RELATIONS': True,
+    'USE_PREFETCH': True,
+    'USE_JSONFIELD': True,
+    'GFK_FETCH_DEPTH': 1,
+}
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -84,9 +112,21 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.amazon',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.twitter',
     'autodous_base',
     'todos',
     'django.contrib.admin',
+    'reversion',
+    'guardian',
+    'actstream',
+    'debug_toolbar'
 )
 
 LOGGING = {

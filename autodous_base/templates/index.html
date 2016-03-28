@@ -5,6 +5,9 @@
 </head>
 
 <body>
+{{request.user.is_authenticated}}
+
+{% url 'account_login' %}
 <div class="ui grid">
     <div class="four wide column">
         <div class="ui horizontal  statistics">

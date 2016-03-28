@@ -51,6 +51,7 @@
     </Compile>
     <Compile Include="todos\migrations\__init__.py" />
     <Compile Include="todos\models.py" />
+    <Compile Include="todos\schema.py" />
     <Compile Include="todos\tests.py" />
     <Compile Include="todos\views.py" />
     <Compile Include="todos\__init__.py" />
@@ -101,11 +102,6 @@
     <Content Include="_archive\todos\templates\edittask.html" />
     <Content Include="_archive\todos\templates\tasks.html" />
     <Content Include="_archive\todos\templates\workbook.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="readme.mht">
-      <SubType>WebBrowser</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env\">
