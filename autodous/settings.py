@@ -64,7 +64,6 @@ WSGI_APPLICATION = 'autodous.wsgi.application'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'guardian.backends.ObjectPermissionBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 
 )
@@ -124,7 +123,6 @@ INSTALLED_APPS = (
     'todos',
     'django.contrib.admin',
     'reversion',
-    'guardian',
     'actstream',
     'debug_toolbar'
 )

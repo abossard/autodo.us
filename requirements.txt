@@ -17,6 +17,7 @@ python3-openid==3.0.9
 pytz==2016.3
 requests==2.9.1
 requests-oauthlib==0.6.1
+rules==1.1.1
 singledispatch==3.4.0.3
 six==1.10.0
 sqlparse==0.1.19

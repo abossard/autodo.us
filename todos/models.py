@@ -4,6 +4,7 @@ import re
 import logging
 from todos.managers import TaskManager, TagManager, PersonManager, LineManager
 from django.utils import timezone
+import rules
 log = logging.getLogger(__name__)
 
 from datetime import datetime, timedelta, time
@@ -18,6 +19,12 @@ from django.contrib import admin
 from django.core.exceptions import ObjectDoesNotExist
 from todos.fields import TimedeltaField
 
+@rules.predicate
+def is_book_owner(user, book):
+    return book.owener == user
+
+rules.add_rule('can_edit_book', is_book_owner)
+rules.add_rule('can_delete_book', is_book_owner)
 
 class Book(models.Model):
     name = models.CharField(max_length=100)
