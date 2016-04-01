@@ -13,7 +13,7 @@ ALLOWED_HOSTS = ('localhost',)
 ADMINS = (('Your Name', 'your_email@example.com'),)
 
 MANAGERS = ADMINS
-
+print(path.join(PROJECT_ROOT, 'db.sqlite3'))
 DATABASES = {
     'default': dj_database_url.config(
         default='sqlite://' + path.join(PROJECT_ROOT, 'db.sqlite3')
