@@ -16,7 +16,7 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='sqlite3://' + path.join(PROJECT_ROOT, 'db.sqlite3')
+        default='sqlite://' + path.join(PROJECT_ROOT, 'db.sqlite3')
     )
 }
 
