@@ -3,6 +3,7 @@ Django settings for autodous project.
 """
 
 from os import path
+import dj_database_url
 PROJECT_ROOT = path.dirname(path.abspath(path.dirname(__file__)))
 
 DEBUG = True
