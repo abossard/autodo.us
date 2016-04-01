@@ -21,3 +21,4 @@ rules==1.1.1
 singledispatch==3.4.0.3
 six==1.10.0
 sqlparse==0.1.19
+dj-database-url==0.4.0

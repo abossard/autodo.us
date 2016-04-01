@@ -14,14 +14,9 @@ ADMINS = (('Your Name', 'your_email@example.com'),)
 MANAGERS = ADMINS
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': path.join(PROJECT_ROOT, 'db.sqlite3'),
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
-    }
+    'default': dj_database_url.config(
+        default='sqlite3://' + path.join(PROJECT_ROOT, 'db.sqlite3')
+    )
 }
 
 LOGIN_URL = '/login'
