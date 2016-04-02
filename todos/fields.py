@@ -5,6 +5,7 @@ from django.core import exceptions
 from django.db.models import fields
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from graphene.contrib.django.converter import convert_django_field, convert_field_to_int
 
 class TimedeltaIntegerField(fields.IntegerField):
     def get_prep_value(self, value):
@@ -56,3 +57,8 @@ class TimedeltaField(models.Field):
             
     def get_db_prep_value(self, value, connection, prepared=False):
         return value.days * 86400 + value.seconds + 0 if isinstance(value, timedelta) else value
+
+@convert_django_field.register(TimedeltaIntegerField)
+@convert_django_field.register(TimedeltaField)
+def convert(field):
+    return convert_field_to_int(field)

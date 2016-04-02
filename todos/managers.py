@@ -1,5 +1,6 @@
 
 from django.db import models
+from django.db.models.aggregates import Sum
 
 
 class TaskManager(models.Manager):
@@ -23,28 +24,25 @@ class TaskManager(models.Manager):
         return self.by_book_id(book_id).filter(line__end__range=date_range).annotate(duration=Sum('line__duration'))
 
     def by_book_id(self, book_id):
-        return super(TaskManager, self).get_query_set().filter(book__id=book_id)
-    
-    def get_query_set(self):
-        return super(TaskManager, self).get_query_set().annotate(duration=Sum('line__duration'))
+        return super(TaskManager, self).get_queryset().filter(book__id=book_id)
 
 
 class TagManager(models.Manager):
 
     def by_book_id(self, book_id):
-        return super(TagManager, self).get_query_set().filter(tagged__book__id=book_id).annotate(duration=Sum('tagged__line__duration'))
+        return super(TagManager, self).get_queryset().filter(tagged__book__id=book_id).annotate(duration=Sum('tagged__line__duration'))
 
-    def get_query_set(self):
-        return super(TagManager, self).get_query_set().annotate(duration=Sum('tagged__line__duration'))
+    def get_queryset(self):
+        return super(TagManager, self).get_queryset().annotate(duration=Sum('tagged__line__duration'))
 
 
 class PersonManager(models.Manager):
 
     def by_book_id(self, book_id):
-        return super(PersonManager, self).get_query_set().filter(sitsin__book__id=book_id).annotate(duration=Sum('sitsin__line__duration'))
+        return super(PersonManager, self).get_queryset().filter(sitsin__book__id=book_id).annotate(duration=Sum('sitsin__line__duration'))
 
-    def get_query_set(self):
-        return super(PersonManager, self).get_query_set().annotate(duration=Sum('sitsin__line__duration'))
+    def get_queryset(self):
+        return super(PersonManager, self).get_queryset().annotate(duration=Sum('sitsin__line__duration'))
 
 
 class LineManager(models.Manager):
