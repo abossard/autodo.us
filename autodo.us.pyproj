@@ -30,6 +30,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="autodous\settings_live.py" />
     <Compile Include="autodous_base\models.py" />
     <Compile Include="autodous_base\tests.py" />
     <Compile Include="autodous_base\urls.py">
@@ -84,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="autodous_base\templates\index.html" />
+    <Content Include="requirements_live.txt" />
     <Content Include="requirements.txt" />
     <Content Include="todos\migrations\__pycache__\0001_initial.cpython-35.pyc" />
     <Content Include="todos\migrations\__pycache__\__init__.cpython-35.pyc" />

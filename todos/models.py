@@ -29,6 +29,7 @@ rules.add_rule('can_delete_book', is_book_owner)
 class Book(models.Model):
     name = models.CharField(max_length=100)
     owner = models.ForeignKey(User)
+    is_open = models.BooleanField(default=True)
 
     class Meta:
         ordering = ('name', )

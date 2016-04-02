@@ -4,6 +4,7 @@ Django settings for autodous project.
 
 from os import path
 import dj_database_url
+import os
 PROJECT_ROOT = path.dirname(path.abspath(path.dirname(__file__)))
 
 DEBUG = True
@@ -13,11 +14,19 @@ ALLOWED_HOSTS = ('localhost',)
 ADMINS = (('Your Name', 'your_email@example.com'),)
 
 MANAGERS = ADMINS
-print(path.join(PROJECT_ROOT, 'db.sqlite3'))
+
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite://' + path.join(PROJECT_ROOT, 'db.sqlite3')
-    )
+    'default': dj_database_url.config()
+} if os.environ.get('DATABASE_URL') else {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': path.join(PROJECT_ROOT, 'db.sqlite3'),
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    }
 }
 
 LOGIN_URL = '/login'
