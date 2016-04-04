@@ -32,6 +32,9 @@
   <ItemGroup>
     <Compile Include="autodous\settings_live.py" />
     <Compile Include="autodous_base\models.py" />
+    <Compile Include="autodous_base\schema.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="autodous_base\tests.py" />
     <Compile Include="autodous_base\urls.py">
       <SubType>Code</SubType>
