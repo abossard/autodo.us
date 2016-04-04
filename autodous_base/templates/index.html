@@ -4,15 +4,21 @@
     <title>{{ title }}</title>
     <style>
         body {
-            padding-top: 130px;
+            padding-top: 120px;
+        }
+        :target::before {
+            content:"";
+            display:block;
+            height:120px; /* fixed header height*/
+            margin:-120px 0 0; /* negative fixed header height */
         }
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-inverted  navbar-fixed-top">
+    <nav class="navbar navbar-inverted  navbar-fixed-top" style="background:white;">
   <div class="container-fluid">
-        <div class="page-header">
+        <div class="page-header" style="margin-bottom:0;">
             <h1>
                 autodo.us <small>todos for procrastinators</small>
             </h1>
@@ -28,10 +34,31 @@
                         <li>
                              <a href="#affix">Affix</a> <ul class="nav"> <li class=""><a href="#affix-examples">Examples</a></li> <li class=""><a href="#affix-usage">Usage</a></li> <li><a href="#affix-options">Options</a></li> <li><a href="#affix-methods">Methods</a></li> <li><a href="#affix-events">Events</a></li> </ul> 
                         </li>
+                        <li><a href="#part01">01 </a></li>
+                        <li>
+                             <a href="#affix">Affix</a> <ul class="nav"> <li class=""><a href="#affix-examples">Examples</a></li> <li class=""><a href="#affix-usage">Usage</a></li> <li><a href="#affix-options">Options</a></li> <li><a href="#affix-methods">Methods</a></li> <li><a href="#affix-events">Events</a></li> </ul> 
+                        </li>
+                        <li><a href="#part01">01 </a></li>
+                        <li>
+                             <a href="#affix">Affix</a> <ul class="nav"> <li class=""><a href="#affix-examples">Examples</a></li> <li class=""><a href="#affix-usage">Usage</a></li> <li><a href="#affix-options">Options</a></li> <li><a href="#affix-methods">Methods</a></li> <li><a href="#affix-events">Events</a></li> </ul> 
+                        </li>
+                        <li><a href="#part01">01 </a></li>
+                        <li>
+                             <a href="#affix">Affix</a> <ul class="nav"> <li class=""><a href="#affix-examples">Examples</a></li> <li class=""><a href="#affix-usage">Usage</a></li> <li><a href="#affix-options">Options</a></li> <li><a href="#affix-methods">Methods</a></li> <li><a href="#affix-events">Events</a></li> </ul> 
+                        </li>
+                        <li><a href="#part01">01 </a></li>
+                        <li>
+                             <a href="#affix">Affix</a> <ul class="nav"> <li class=""><a href="#affix-examples">Examples</a></li> <li class=""><a href="#affix-usage">Usage</a></li> <li><a href="#affix-options">Options</a></li> <li><a href="#affix-methods">Methods</a></li> <li><a href="#affix-events">Events</a></li> </ul> 
+                        </li>
+                        <li><a href="#part01">01 </a></li>
+                        <li>
+                             <a href="#affix">Affix</a> <ul class="nav"> <li class=""><a href="#affix-examples">Examples</a></li> <li class=""><a href="#affix-usage">Usage</a></li> <li><a href="#affix-options">Options</a></li> <li><a href="#affix-methods">Methods</a></li> <li><a href="#affix-events">Events</a></li> </ul> 
+                        </li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-4">
+                <h2 id="part01">#part01</h2>
                 <h1>Books</h1>
                 <div class="list-group">
                     <div href="#" class="list-group-item clearfix">
@@ -116,7 +143,7 @@
                         </div>
                     </div>
                 </div>
-
+                <h2 id="affix">#affix</h2>
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Add a new book...">
                     <span class="input-group-btn">
