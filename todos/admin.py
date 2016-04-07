@@ -5,24 +5,52 @@ from reversion.admin import VersionAdmin
 
 @admin.register(Task)
 class TaskAdmin(VersionAdmin):
-    pass
+    list_display = [
+        'text',
+        'description',
+        'finished',
+        'active',
+        'created',
+        'updated',
+        'duration',
+        'count'
+    ]
 
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    pass
+    list_display = [
+        'name',
+        'owner',
+        'is_open',
+        'duration',
+        'count'
+    ]
 
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
-    pass
+    list_display = [
+        'name',
+        'duration',
+        'count'
+    ]
 
 
 @admin.register(Person)
 class TagAdmin(admin.ModelAdmin):
-    pass
-
+    list_display = [
+        'name',
+        'duration',
+        'count'
+    ]
 
 @admin.register(Line)
 class LineAdmin(admin.ModelAdmin):
-    pass
+    list_display = [
+        'created',
+        'task',
+        'start',
+        'end',
+        'duration'
+    ]

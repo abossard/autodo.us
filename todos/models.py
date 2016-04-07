@@ -2,7 +2,7 @@ from django.db import models
 
 import re
 import logging
-from todos.managers import TaskManager, TagManager, PersonManager, LineManager
+from todos.managers import BookManager, TaskManager, TagManager, PersonManager, LineManager
 from django.utils import timezone
 import rules
 from django.db.models.expressions import F
@@ -18,8 +18,6 @@ from django.db.models.signals import post_save, pre_save
 from django.contrib.auth.models import User
 from django.contrib import admin
 from django.core.exceptions import ObjectDoesNotExist
-from todos.fields import TimedeltaField
-
 
 @rules.predicate
 def is_book_owner(user, book):
@@ -28,12 +26,23 @@ def is_book_owner(user, book):
 rules.add_rule('can_edit_book', is_book_owner)
 rules.add_rule('can_delete_book', is_book_owner)
 
+class DurationMixin:
+    def duration(self):
+        return self.duration_a
+    duration.admin_order_field = 'duration_a'
 
-class Book(models.Model):
+class CountMixin:
+    def count(self):
+        return self.count_a
+    count.admin_order_field = 'count_a'
+
+class Book(CountMixin, DurationMixin, models.Model):
     name = models.CharField(max_length=100)
     owner = models.ForeignKey(User)
     is_open = models.BooleanField(default=True)
-
+    
+    objects = BookManager()
+    
     class Meta:
         ordering = ('name', )
         unique_together = ('name', 'owner')
@@ -42,13 +51,12 @@ class Book(models.Model):
         return self.name
 
 
-class Task(models.Model):
+class Task(CountMixin, DurationMixin, models.Model):
     text = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     finished = models.BooleanField(default=False)
     book = models.ForeignKey(Book)
     active = models.BooleanField(default=False)
-    duration = TimedeltaField(default=timedelta(0))
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     current_line = models.ForeignKey(
@@ -59,7 +67,7 @@ class Task(models.Model):
         default=None)  # we blanked it, because the signal fills it out
 
     objects = TaskManager()
-
+    
     class Meta:
         ordering = ('-finished', 'created',)
         unique_together = ('text', 'book')
@@ -137,32 +145,27 @@ def tag_and_people_management(sender, **kwargs):
 post_save.connect(tag_and_people_management, sender=Task)
 
 
-class Tag(models.Model):
-    name = models.CharField(max_length=50, primary_key=True)
+class Tag(CountMixin, DurationMixin, models.Model):
+    name = models.SlugField(max_length=50, primary_key=True)
     tagged = models.ManyToManyField(Task)
-    duration = TimedeltaField(default=timedelta(0))
-
+    
     objects = TagManager()
 
     class Meta:
         ordering = ()
 
-    def time_spent(self):
-        if True:
-            return 10
-        duration = timedelta(0)
-        for task in self.tagged.all():
-            duration += task.time_spent()
-        return duration
-
     def __str__(self):
         return "#%s" % (self.name,)
 
 
-class Person(models.Model):
+class Person(CountMixin, DurationMixin, models.Model):
     name = models.CharField(max_length=50, primary_key=True)
     sitsin = models.ManyToManyField(Task)
-    duration = TimedeltaField(default=timedelta(0))
+#    duration = TimedeltaField(default=timedelta(0))
+
+    @property
+    def duration(self):
+        return self.duration_a
 
     objects = PersonManager()
 
@@ -186,7 +189,7 @@ class Line(models.Model):
     book = models.ForeignKey(Book)
     start = models.DateTimeField(null=True, blank=True)
     end = models.DateTimeField(null=True, blank=True)
-    duration = TimedeltaField(default=timedelta(0))
+    duration = models.DurationField(null=True, blank=True)
 
     objects = LineManager()
 
@@ -212,14 +215,14 @@ def duration_aggregation(sender, **kwargs):
 pre_save.connect(duration_aggregation, sender=Line)
 
 
-def duration_propagation(sender, **kwargs):
-    line = kwargs['instance']
-    base_task_qs = Task.objects.filter(id=line.task_id)
-    task = base_task_qs.annotate(d=Sum('line__duration'))[:1]
-    if task:
-        base_task_qs.update(duration=task[0].d)
+#def duration_propagation(sender, **kwargs):
+#    line = kwargs['instance']
+#    base_task_qs = Task.objects.filter(id=line.task_id)
+#    task = base_task_qs.annotate(d=Sum('line__duration'))[:1]
+#    if task:
+#        base_task_qs.update(duration=task[0].d)
 
-post_save.connect(duration_propagation, sender=Line)
+#post_save.connect(duration_propagation, sender=Line)
 
 # def post_save_work_aggregation(sender, **kwargs):
 ##    work = kwargs['instance']

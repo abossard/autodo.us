@@ -49,7 +49,6 @@
     <Compile Include="todos\admin.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="todos\fields.py" />
     <Compile Include="todos\managers.py">
       <SubType>Code</SubType>
     </Compile>

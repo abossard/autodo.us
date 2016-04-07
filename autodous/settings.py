@@ -130,7 +130,6 @@ INSTALLED_APPS = (
     'todos',
     'django.contrib.admin',
     'reversion',
-    'actstream',
     'debug_toolbar'
 )
 
