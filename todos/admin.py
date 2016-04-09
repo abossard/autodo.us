@@ -12,8 +12,8 @@ class TaskAdmin(VersionAdmin):
         'active',
         'created',
         'updated',
-        'duration',
-        'count'
+        'duration_orderable',
+        'count_orderable'
     ]
 
 
@@ -23,8 +23,8 @@ class BookAdmin(admin.ModelAdmin):
         'name',
         'owner',
         'is_open',
-        'duration',
-        'count'
+        'duration_orderable',
+        'count_orderable'
     ]
 
 
@@ -32,8 +32,8 @@ class BookAdmin(admin.ModelAdmin):
 class TagAdmin(admin.ModelAdmin):
     list_display = [
         'name',
-        'duration',
-        'count'
+        'duration_orderable',
+        'count_orderable'
     ]
 
 
@@ -41,8 +41,8 @@ class TagAdmin(admin.ModelAdmin):
 class TagAdmin(admin.ModelAdmin):
     list_display = [
         'name',
-        'duration',
-        'count'
+        'duration_orderable',
+        'count_orderable'
     ]
 
 @admin.register(Line)
@@ -52,5 +52,5 @@ class LineAdmin(admin.ModelAdmin):
         'task',
         'start',
         'end',
-        'duration'
+        'duration',
     ]

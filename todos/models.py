@@ -19,6 +19,7 @@ from django.contrib.auth.models import User
 from django.contrib import admin
 from django.core.exceptions import ObjectDoesNotExist
 
+
 @rules.predicate
 def is_book_owner(user, book):
     return book.owener == user
@@ -26,23 +27,36 @@ def is_book_owner(user, book):
 rules.add_rule('can_edit_book', is_book_owner)
 rules.add_rule('can_delete_book', is_book_owner)
 
+
 class DurationMixin:
+
+    @property
     def duration(self):
         return self.duration_a
-    duration.admin_order_field = 'duration_a'
+
+    def duration_orderable(self):
+        return self.duration_a
+    duration_orderable.admin_order_field = 'duration_a'
+
 
 class CountMixin:
+    
+    @property
     def count(self):
         return self.count_a
-    count.admin_order_field = 'count_a'
+
+    def count_orderable(self):
+        return self.count_a
+    count_orderable.admin_order_field = 'count_a'
+
 
 class Book(CountMixin, DurationMixin, models.Model):
     name = models.CharField(max_length=100)
     owner = models.ForeignKey(User)
     is_open = models.BooleanField(default=True)
-    
+
     objects = BookManager()
-    
+
     class Meta:
         ordering = ('name', )
         unique_together = ('name', 'owner')
@@ -67,7 +81,7 @@ class Task(CountMixin, DurationMixin, models.Model):
         default=None)  # we blanked it, because the signal fills it out
 
     objects = TaskManager()
-    
+
     class Meta:
         ordering = ('-finished', 'created',)
         unique_together = ('text', 'book')
@@ -146,9 +160,9 @@ post_save.connect(tag_and_people_management, sender=Task)
 
 
 class Tag(CountMixin, DurationMixin, models.Model):
-    name = models.SlugField(max_length=50, primary_key=True)
-    tagged = models.ManyToManyField(Task)
-    
+    name = models.SlugField(max_length=50)
+    tagged = models.ManyToManyField(Task, related_name='tag_set')
+
     objects = TagManager()
 
     class Meta:
@@ -161,22 +175,12 @@ class Tag(CountMixin, DurationMixin, models.Model):
 class Person(CountMixin, DurationMixin, models.Model):
     name = models.CharField(max_length=50, primary_key=True)
     sitsin = models.ManyToManyField(Task)
-#    duration = TimedeltaField(default=timedelta(0))
 
     @property
     def duration(self):
         return self.duration_a
 
     objects = PersonManager()
-
-    def time_spent(self):
-        if True:
-            return 10
-        duration = timedelta(0)
-        for task in self.sitsin.all():
-            # print task.time_spent()
-            duration += task.time_spent()
-        return duration
 
     def __str__(self):
         return "@%s" % (self.name,)
@@ -215,7 +219,7 @@ def duration_aggregation(sender, **kwargs):
 pre_save.connect(duration_aggregation, sender=Line)
 
 
-#def duration_propagation(sender, **kwargs):
+# def duration_propagation(sender, **kwargs):
 #    line = kwargs['instance']
 #    base_task_qs = Task.objects.filter(id=line.task_id)
 #    task = base_task_qs.annotate(d=Sum('line__duration'))[:1]
