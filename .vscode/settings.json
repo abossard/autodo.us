@@ -1,5 +1,8 @@
 // Place your settings in this file to overwrite default and user settings.
 {
     "python.pythonPath": "C:/Users/andre/Desktop/projects/autodo.us/env/Scripts/python.exe",
-    "python.formatting.provider": "autopep8"
+    "python.formatting.provider": "autopep8",
+    "files.exclude": {
+        "env/": true
+    }
 }

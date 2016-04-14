@@ -1,11 +1,15 @@
+from datetime import datetime, time, timedelta
 
+from django.utils import timezone
 from django.db import models
-from django.db.models.aggregates import Sum, Count
+from django.db.models import ExpressionWrapper, F
+from django.db.models.aggregates import Sum, Count, Max
 
 
 class BookManager(models.Manager):
 
     def get_queryset(self):
+        # active task current line start_date
         return super(BookManager, self).get_queryset().annotate(
             duration_a=Sum('task__line__duration'),
             count_a=Count('task')
@@ -41,7 +45,7 @@ class TaskManager(models.Manager):
         return self.by_book_id(book_id).filter(line__end__range=date_range)
 
     def by_book_id(self, book_id):
-        return super(TaskManager, self).get_queryset().filter(book__id=book_id)
+        return self.filter(book__id=book_id)
 
 
 class TagManager(models.Manager):
@@ -53,7 +57,8 @@ class TagManager(models.Manager):
         )
 
     def by_book_id(self, book_id):
-        return super(TagManager, self).get_queryset().filter(tagged__book__id=book_id).annotate(duration=Sum('tagged__line__duration'))
+        return super(TagManager, self).get_queryset().filter(tagged__book__id=book_id).annotate(duration_a=Sum('tagged__line__duration'),
+                                                                                                count_a=Count('tagged'),)
 
 
 class PersonManager(models.Manager):
@@ -65,7 +70,8 @@ class PersonManager(models.Manager):
         )
 
     def by_book_id(self, book_id):
-        return super(PersonManager, self).get_queryset().filter(sitsin__book__id=book_id).annotate(duration=Sum('sitsin__line__duration'))
+        return super(PersonManager, self).get_queryset().filter(sitsin__book__id=book_id).annotate(duration_a=Sum('sitsin__line__duration'),
+                                                                                                   count_a=Count('sitsin'))
 
 
 class LineManager(models.Manager):

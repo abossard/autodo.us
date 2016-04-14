@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %} {{ block.super }} taskbook{% endblock title %}
+{% block content %}
+{{ block.super }}
+
+Welcome, {{ request.user }}
+<br />
+<ul>
+{% for task in tasks %}
+<li>{{ task }} ({{ task.duration }})</li>
+{% endfor %}
+</ul>
+
+
+<ul>
+{% for person in people %}
+<li>{{ person }} ({{ person.time_spent }})</li>
+{% endfor %}
+</ul>
+
+<ul>
+{% for tag in tags %}
+<li>{{ tag }} ({{ tag.time_spent }})</li>
+{% endfor %}
+</ul>
+
+
+{% endblock content %}

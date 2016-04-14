@@ -1,0 +1,47 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Python",
+			"type": "python",
+			"request": "launch",
+			"stopOnEntry": true,
+			"program": "${file}",
+			"debugOptions": [
+				"WaitOnAbnormalExit",
+				"WaitOnNormalExit",
+				"RedirectOutput"
+			]
+		},
+		{
+			"name": "Python Console App",
+			"type": "python",
+			"request": "launch",
+			"stopOnEntry": true,
+			"program": "${file}",
+			"externalConsole": true,
+			"debugOptions": [
+				"WaitOnAbnormalExit",
+				"WaitOnNormalExit"
+			]
+		},
+		{
+			"name": "Django",
+			"type": "python",
+			"request": "launch",
+			"stopOnEntry": false,
+			"program": "${workspaceRoot}/manage.py",
+			"pythonPath": "C:/Users/andre/Desktop/projects/autodo.us/env/Scripts/python.exe",
+			"args": [
+				"runserver",
+				"--noreload"
+			],
+			"debugOptions": [
+				"WaitOnAbnormalExit",
+				"WaitOnNormalExit",
+				"RedirectOutput",
+				"DjangoDebugging"
+			]
+		}
+	]
+}

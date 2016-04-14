@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %} {{ block.super }} index{% endblock title %}
+{% block content %}
+{{ block.super }}
+
+<h3>Books</h3>
+{% for book in books %}
+<a href="{% url 'todos.views.workbook' book_id=book.id %}">{{book}}</a>
+{% endfor %}
+
+<h3>Task overview</h3>
+<ul>
+{% for task in open_tasks %}
+<li>{{ task }} ( {{task.duration}} )</li>
+{% endfor %}
+</ul>
+
+<h3>Active Tasks</h3>
+<ul>
+{% for task in active_tasks %}
+<li {% if task.active %}class="active"{% endif %}>
+{{ task }} (from <a href="{% url 'todos.views.workbook' book_id=task.book.id %}">{{task.book}}</a>)
+<a href="{% url 'todos.views.edittask' task_id=task.id %}" rel="#overlay">edit task</a> 
+{% if task.active %}
+<a href="{% url 'todos.views.stop_work' task_id=task.id %}">stop work</a> 
+or <a href="{% url 'todos.views.stop_work' task_id=task.id finished=1 %}">finish work</a>
+{% else %}
+<a href="{% url 'todos.views.start_work' task_id=task.id %}">start work</a>
+{% endif %}
+</li>
+{% endfor %}
+</ul>
+
+<h3>Time spent on tags</h3>
+<ul>
+{% for tag in tags %}
+<li>
+{{ tag }} ({{ tag.duration }})
+</li>
+{% endfor %}
+</ul>
+
+<h3>Time spent on Person</h3>
+<ul>
+{% for person in persons %}
+<li>
+{{ person }} ({{ person.duration }})
+</li>
+{% endfor %}
+</ul>
+
+<h3>Todays Work</h3>
+<ul>
+{% for task in todays_work %}
+<li>{{ task }} ({{ task.duration }})</li>
+{% endfor %}
+</ul>
+
+<h3>Yesterdays Work</h3>
+<ul>
+{% for task in yesterdays_work %}
+<li>
+{{ task }} ({{ task.duration }})
+</li>
+{% endfor %}
+</ul>
+
+<h3>Finished Tasks</h3>
+<ul>
+{% for task in finished_tasks %}
+<li>
+{{ task }} ({{ task.duration }})
+</li>
+{% endfor %}
+</ul>
+
+
+{% if current_book %}
+<ul>
+<li>
+<form method="post" action="{% url 'todos.views.addtask' book_id=current_book.id %}">{% csrf_token %}
+Addtask: {{ newtask.text }} <input type="submit" />
+</form>
+</li>
+
+{% for line in current_book.line_set.all.select_related %}
+<li {% if line.passed_on %}class="passed_on"{% endif %}{% if line.task.active %}class="active"{% endif %}>
+{{ line.task }} {{ line.worktime }}
+{% if not line.passed_on %}
+<a href="{% url 'todos.views.edittask' task_id=line.task.id %}" >edit task</a> 
+{% if line.task.active %}
+<a href="{% url 'todos.views.stop_work' task_id=line.task.id %}">stop work</a> 
+or <a href="{% url 'todos.views.stop_work' task_id=line.task.id finished=1 %}">finish work</a>
+{% else %}
+<a href="{% url 'todos.views.start_work' task_id=line.task.id %}">start work</a>
+{% endif %}
+{% endif %}
+</li>
+{% endfor %}
+</ul>
+{% else %}
+no book available, please create one
+{% endif %}
+
+<form method="post" action="{% url 'todos.views.addbook' %}">{% csrf_token %}
+Addbook: {{ newbook }} <input type="submit" />
+</form>
+
+
+{% endblock content %}
+

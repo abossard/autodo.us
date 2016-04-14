@@ -29,7 +29,7 @@ DATABASES = {
     }
 }
 
-LOGIN_URL = '/login'
+#LOGIN_URL = '/login'
 
 TIME_ZONE = 'Europe/Zurich'
 
@@ -119,11 +119,11 @@ INSTALLED_APPS = (
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.amazon',
-    'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.github',
-    'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.twitter',
+    # 'allauth.socialaccount.providers.amazon',
+    # 'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.github',
+    # 'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.twitter',
     'django_graphiql',
     'graphene.contrib.django',
     'autodous_base',
