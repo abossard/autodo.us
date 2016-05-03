@@ -173,7 +173,7 @@ class Tag(CountMixin, DurationMixin, models.Model):
 
 
 class Person(CountMixin, DurationMixin, models.Model):
-    name = models.CharField(max_length=50, primary_key=True)
+    name = models.CharField(max_length=50)
     sitsin = models.ManyToManyField(Task)
 
     @property
