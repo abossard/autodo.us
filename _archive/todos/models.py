@@ -141,7 +141,7 @@ class TagManager(models.Manager):
         return super(TagManager, self).get_query_set().annotate(duration=Sum('tagged__line__duration'))
     
 class Tag(models.Model):
-    name = models.CharField(max_length=50, primary_key=True)
+    name = models.CharField(max_length=50)
     tagged = models.ManyToManyField(Task)
     duration = TimedeltaField(default=0)
 
@@ -171,7 +171,7 @@ class PersonManager(models.Manager):
 
 
 class Person(models.Model):
-    name = models.CharField(max_length=50, primary_key=True)
+    name = models.CharField(max_length=50)
     sitsin = models.ManyToManyField(Task)
     duration = TimedeltaField(default=0)
     
