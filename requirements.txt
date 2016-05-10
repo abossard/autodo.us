@@ -12,7 +12,7 @@ graphene==0.8.1
 graphql-core==0.4.18
 graphql-django-view==1.1.1
 graphql-relay==0.3.3
-oauthlib==1.0.3
+oauthlib==1.1.1
 pep8==1.7.0
 python3-openid==3.0.10
 pytz==2016.4
