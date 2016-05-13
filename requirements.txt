@@ -7,6 +7,7 @@ django-debug-toolbar==1.4
 django-filter==0.13.0
 django-graphiql==0.4.4
 django-guardian==1.4.4
+django-pyodbc-azure==1.9.3.0
 django-reversion==1.10.2
 graphene==0.8.1
 graphql-core==0.4.18
@@ -14,6 +15,7 @@ graphql-django-view==1.1.1
 graphql-relay==0.3.3
 oauthlib==1.1.1
 pep8==1.7.0
+pyodbc==3.0.10
 python3-openid==3.0.10
 pytz==2016.4
 requests==2.10.0
