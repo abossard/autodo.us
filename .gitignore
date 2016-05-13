@@ -90,8 +90,8 @@ Temporary Items
 
 # Windows
 # =========================
-web.config
-web.debug.config
+# Web.config
+# Web.debug.config
 
 # Windows image file caches
 Thumbs.db
