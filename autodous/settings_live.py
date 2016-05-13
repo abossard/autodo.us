@@ -9,7 +9,10 @@ ALLOWED_HOSTS = (
     'autodo.us',
     'autodo.me'
 )
-
+DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+AZURE_ACCOUNT_NAME = 'autodous'
+AZURE_ACCOUNT_KEY = '1MmE4Aapcve0K+DqptqWMuIjPcvDoDuH97QhvYd+NhjOfJurjOdUHiFoCFtUS4K62DgQrLHHki4xjxQP+9qgog=='
+AZURE_CONTAINER = 'static'
 # Driver={SQL Server Native Client 11.0};Server=tcp:autodous.database.windows.net,1433;Database=autodous_dev;Uid=autodo-database@autodous;Pwd={your_password_here};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;
 DATABASES = {
     'default': {
