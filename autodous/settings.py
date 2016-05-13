@@ -15,15 +15,16 @@ ADMINS = (('Your Name', 'your_email@example.com'),)
 
 MANAGERS = ADMINS
 
-# Driver={SQL Server Native Client 11.0};Server=tcp:autodous.database.windows.net,1433;Database=autodous_dev;Uid=autodo-database@autodous;Pwd={your_password_here};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;
 DATABASES = {
+    'default': dj_database_url.config()
+} if os.environ.get('DATABASE_URL') else {
     'default': {
-        'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'autodous_dev',
-        'USER': 'autodo-database@autodous',
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': 'autodous.database.windows.net',
-        'PORT': '1433',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': path.join(PROJECT_ROOT, 'db.sqlite3'),
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -68,7 +69,6 @@ WSGI_APPLICATION = 'autodous.wsgi.application'
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
-
 )
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'

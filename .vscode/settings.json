@@ -3,6 +3,6 @@
     "python.pythonPath": "C:/Users/andre/Desktop/projects/autodo.us/env/Scripts/python.exe",
     "python.formatting.provider": "autopep8",
     "files.exclude": {
-        "env/": false
+        "env/": true
     }
 }
