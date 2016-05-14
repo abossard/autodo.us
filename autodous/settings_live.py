@@ -13,6 +13,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 AZURE_ACCOUNT_NAME = 'autodous'
 AZURE_ACCOUNT_KEY = os.getenv('STORAGE_KEY') 
 AZURE_CONTAINER = 'static'
+
 # Driver={SQL Server Native Client 11.0};Server=tcp:autodous.database.windows.net,1433;Database=autodous_dev;Uid=autodo-database@autodous;Pwd={your_password_here};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;
 DATABASES = {
     'default': {
